@@ -90,7 +90,7 @@ app.delete("/listings/:id", async (req, res) => {
 // });
 
 
-
+//this is for handling all other routes which are not defined
 // default route
 // app.get("*", (req, res) => {
 //     res.render("listings/default.ejs");
