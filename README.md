@@ -94,5 +94,6 @@ This project is licensed under the MIT License.
 
 ## Contact
 
-* **GitHub:** [Your GitHub Profile](https://github.com/azhacke)
-* **LinkedIn:** [Your LinkedIn Profile](https://linkedin.com/in/azhacked)
+* **GitHub:** [GitHub Profile](https://github.com/azhacke)
+* **LinkedIn:** [LinkedIn Profile](https://linkedin.com/in/azhacked)
+
