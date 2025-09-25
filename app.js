@@ -49,7 +49,7 @@ const validateListing = (req, res, next) => {//why do we need this when we have 
     } else {
         next();
     }
-}; //because error this is giving unnessary error in update route so commented it out
+}; 
 
 
 // validate review middleware
