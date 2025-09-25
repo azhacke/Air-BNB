@@ -1,0 +1,12 @@
+<% layout("layouts/boilerplate") %>
+
+<dvi class="row">
+    <div class="alert alert-danger col-md-6 offset-md-3 text-center mt-5" role="alert">
+        <h4 class="alert-heading">Error <%= err.status %></h4>
+        <h2><%= err.statusCode %></h2>
+        <h2><%= err.message %></h2>
+        <hr>
+        <a href="/listings" class="btn btn-primary">Go Back to Listings</a>
+
+    </div>
+</div>
