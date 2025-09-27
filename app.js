@@ -49,7 +49,7 @@ const validateListing = (req, res, next) => {//why do we need this when we have 
     } else {
         next();
     }
-}; 
+};
 
 
 // validate review middleware
@@ -126,7 +126,7 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     res.redirect("/listings");
 }));
 
-//reviews post route
+// post review route
 app.post("/listings/:id/reviews", validateReview, wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);//why we need to find the listing here
     let newReview = new Review(req.body.review);//what is happening in this line
@@ -138,6 +138,33 @@ app.post("/listings/:id/reviews", validateReview, wrapAsync(async (req, res) => 
 
     console.log("New Review Added");
     // Redirect to the listing page after adding the review
+    res.redirect(`/listings/${listing._id}`);
+})
+);
+
+// delete review route
+app.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+    // console.log(id, reviewId);
+
+    // Find the listing by ID
+    let listing = await Listing.findById(id);
+
+    // Remove the review from the listing
+    listing.reviews.pull(reviewId);
+
+    // this is to remove the saved id of review in the listing schema this also works same as above line
+    // await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+
+
+    // Delete the review from the database
+    await Review.findByIdAndDelete(reviewId);
+
+    // Save the updated listing
+    await listing.save();
+
+    console.log("Review Deleted");
+    // Redirect to the listing page after deleting the review
     res.redirect(`/listings/${listing._id}`);
 })
 );
