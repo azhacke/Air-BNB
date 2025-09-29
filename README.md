@@ -17,9 +17,9 @@ Welcome to the **Airbnb Clone**! This project is a full-stack web application th
 ## Technologies Used
 
 ### Frontend
-* **React:** A JavaScript library for building the user interface.
+* **React:** A JavaScript library for building the user interface. still working on this 
 * **React Router:** For handling navigation and routing within the application.
-* **CSS/Tailwind CSS:** For styling and creating a responsive design.
+* **CSS/bootstrap CSS:** For styling and creating a responsive design.
 
 ### Backend
 * **Node.js/Express.js:** A robust backend framework for building the API.
@@ -27,8 +27,8 @@ Welcome to the **Airbnb Clone**! This project is a full-stack web application th
 * **Mongoose:** An ODM (Object Data Modeling) library for MongoDB and Node.js.
 
 ### Deployment
-* **GitHub Pages / Vercel / Netlify:** (Choose one or more that you used) for deploying the frontend.
-* **Heroku / Render:** (Choose one or more that you used) for deploying the backend.
+* **GitHub Pages / Vercel / Netlify:** (Choose one or more that you used) for deploying the frontend. still working on this
+* **Heroku / Render:** (Choose one or more that you used) for deploying the backend.still working on this
 
 ---
 
