@@ -76,7 +76,7 @@ Welcome to the **Airbnb Clone**! This project is a full-stack web application th
 4.  **Start the servers:**
     ```bash
     # Start the backend server
-    
+
     nodemon app.js
 
     ```
@@ -101,7 +101,7 @@ This project is licensed under the MIT License.
  
  if you face any problem you can message me on linkedin here 
 
-* **LinkedIn:** [LinkedIn Profile](https://linkedin.com/in/azhacked)
+* **LinkedIn:** [azhacke](https://linkedin.com/in/azhacked)
 
 
-* **GitHub:** [GitHub Profile](https://github.com/azhacke)
+* **GitHub:** [azhacked](https://github.com/azhacke)
