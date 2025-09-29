@@ -47,13 +47,16 @@ Welcome to the **Airbnb Clone**! This project is a full-stack web application th
     cd Air-BNB
     ```
 
-2.  **Install dependencies for both frontend and backend:**
+2.  **Install dependencies for  backend and Databases:**
     ```bash
     # For the backend
     npm install
 
-    # For the frontend
-    npm install
+    # For the databases
+    **before this install mongoose database**
+    cd init
+    node index.js
+    cd ..
     ```
 
 3.  **Set up environment variables:**
@@ -66,12 +69,8 @@ Welcome to the **Airbnb Clone**! This project is a full-stack web application th
 4.  **Start the servers:**
     ```bash
     # Start the backend server
-    <!-- cd backend -->
     nodemon app.js
 
-    <!-- # Start the frontend server
-    cd ../frontend
-    npm start -->
     ```
 
 5.  Open your browser and navigate to `http://localhost:5001` to view the application.
