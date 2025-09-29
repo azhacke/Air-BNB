@@ -53,22 +53,30 @@ Welcome to the **Airbnb Clone**! This project is a full-stack web application th
     npm install
 
     # For the databases
-    **before this install mongoose database**
+    #before this install mongoose database
+
     cd init
+
     node index.js
+
     cd ..
+
     ```
 
 3.  **Set up environment variables:**
     
-    ```your default port is 
+    ```your default port is  5001
+
     https://localhost:5001/
+
     you can change it in the app.js file port
+
     ```
 
 4.  **Start the servers:**
     ```bash
     # Start the backend server
+    
     nodemon app.js
 
     ```
