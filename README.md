@@ -44,39 +44,37 @@ Welcome to the **Airbnb Clone**! This project is a full-stack web application th
 1.  **Clone the repository:**
     ```bash
     git clone (https://github.com/azhacke/Air-BNB/)
-    cd your-repo-name
+    cd Air-BNB
     ```
 
 2.  **Install dependencies for both frontend and backend:**
     ```bash
     # For the backend
-    cd backend
     npm install
 
     # For the frontend
-    cd ../frontend
     npm install
     ```
 
 3.  **Set up environment variables:**
-    Create a `.env` file in the `backend` directory with the following variables:
-    ```
-    MONGO_URI=your_mongodb_connection_string
-    PORT=5000
+    
+    ```your default port is 
+    https://localhost:5001/
+    you can change it in the app.js file port
     ```
 
 4.  **Start the servers:**
     ```bash
     # Start the backend server
-    cd backend
-    npm start
+    <!-- cd backend -->
+    nodemon app.js
 
-    # Start the frontend server
+    <!-- # Start the frontend server
     cd ../frontend
-    npm start
+    npm start -->
     ```
 
-5.  Open your browser and navigate to `http://localhost:3000` to view the application.
+5.  Open your browser and navigate to `http://localhost:5001` to view the application.
 
 ---
 
