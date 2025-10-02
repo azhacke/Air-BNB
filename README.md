@@ -7,13 +7,14 @@ A full-stack web application that replicates the core functionalities of Airbnb,
 
 ---
 
-## 📋 Features
+## 📋 Current Status
 
-- **Property Listings** - Browse a wide variety of properties with images, location, pricing, and amenities
-- **Advanced Search & Filters** - Find the perfect property using powerful search and filtering options
-- **Detailed Property Pages** - View comprehensive information including maps and host details
-- **Booking System** - Select dates and book properties with clear cost breakdowns
-- **User Authentication** - Secure registration and login system to manage bookings and profiles
+This project is currently in active development. The backend infrastructure and database models are being built.
+
+### ✅ Completed
+- Backend server setup with Express.js
+- MongoDB database integration
+- Basic project structure and routing
 
 ---
 
@@ -106,15 +107,19 @@ Air-BNB/
 
 ---
 
-## 🔮 Future Enhancements
+## 🔮 Planned Features
 
-- [ ] Complete React frontend implementation
-- [ ] Deploy frontend to Vercel/Netlify
-- [ ] Deploy backend to Render/Railway
-- [ ] Add payment integration (Stripe)
-- [ ] Implement reviews and ratings system
-- [ ] Add real-time messaging between hosts and guests
-- [ ] Integrate Google Maps API for better location features
+- [ ] **Property Listings** - Browse a wide variety of properties with images, location, pricing, and amenities
+- [ ] **Advanced Search & Filters** - Find the perfect property using powerful search and filtering options
+- [ ] **Detailed Property Pages** - View comprehensive information including maps and host details
+- [ ] **Booking System** - Select dates and book properties with clear cost breakdowns
+- [ ] **User Authentication** - Secure registration and login system to manage bookings and profiles
+- [ ] **React Frontend** - Complete frontend implementation
+- [ ] **Payment Integration** - Stripe for secure transactions
+- [ ] **Reviews & Ratings** - User feedback system
+- [ ] **Real-time Messaging** - Communication between hosts and guests
+- [ ] **Google Maps Integration** - Enhanced location features
+- [ ] **Deployment** - Deploy frontend (Vercel/Netlify) and backend (Render/Railway)
 
 ---
 
