@@ -31,16 +31,18 @@ router.post(
 
     await newReview.save();//why using .save here
     await listing.save();//why using .save here
-
+    req.flash("success", "Successfully added a review!");
     // Redirect to the listing page after adding the review
     res.redirect(`/listings/${listing._id}`);
 })
 );
 
 // delete review route
-router.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
+router.delete(
+    "/:reviewId",
+    wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
-
+    // console.log(id, reviewId);
     // Find the listing by ID
     let listing = await Listing.findById(id);
 
@@ -57,7 +59,8 @@ router.delete("/listings/:id/reviews/:reviewId", wrapAsync(async (req, res) => {
     // Save the updated listing
     await listing.save();
 
-    console.log("Review Deleted");
+    // console.log("Review Deleted");
+    req.flash("success", "Successfully deleted a review!");
     // Redirect to the listing page after deleting the review
     res.redirect(`/listings/${listing._id}`);
 })
