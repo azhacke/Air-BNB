@@ -69,6 +69,7 @@ passport.deserializeUser(User.deserializeUser());//to retrieve user info from se
 app.use(((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currentUser = req.user;
     next();
 }));
 

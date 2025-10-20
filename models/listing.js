@@ -21,7 +21,12 @@ const listingSchema = new Schema({
       type: Schema.Types.ObjectId,//why ObjectId? because we are referencing another document (Review) in the database
       ref: "Review"
     }
-  ]
+  ],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
+
 });
 
 listingSchema.post("findOneAndDelete", async function (Listing) {
