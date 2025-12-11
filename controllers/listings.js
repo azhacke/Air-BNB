@@ -89,7 +89,7 @@ module.exports.editRoute = async (req, res) => {
 //Update Route assync
 module.exports.updateRoute = async (req, res) => {
     let { id } = req.params;
-    await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true });
     req.flash("success", "Successfully updated the listing!");
     res.redirect(`/listings/${listing._id}`);
 };

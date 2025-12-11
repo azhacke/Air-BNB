@@ -40,4 +40,4 @@ module.exports.deleteReview = async (req, res) => {
         req.flash("success", "Successfully deleted a review!");
         // Redirect to the listing page after deleting the review
         res.redirect(`/listings/${listing._id}`);
-    };
+};
