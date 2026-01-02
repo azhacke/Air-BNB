@@ -114,14 +114,18 @@ body {
 
 /* show Page */
 .show-img {
-    height: 30vh;
-
+    width: 100%;
+    aspect-ratio: 16/9;
+    max-height: 60vh;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    display: block;
 }
 
 /* map */
 #map {
-    width: 60vh;
-    height: 300px;
+    width: 60vw;
+    height: 60vh;
     /* border-radius: 1rem;
     margin-top: 2rem; */
     border-radius: 1rem;
