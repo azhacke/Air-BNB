@@ -5,6 +5,10 @@ const Listing = require("../models/listing.js");
 const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 // const { index, showRoute, createRoute,editRoute, updateRoute, deleteRoute } = require("../controllers/listings.js");
 const listingController = require("../controllers/listings.js");
+const multer = require("multer");
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
+
 
 router.route("/")
     //index route assync
@@ -12,10 +16,13 @@ router.route("/")
     //Create Route
     .post(
         isLoggedIn,
-        validateListing,
+        // validateListing,
+        upload.single('listing[image][file]'),
         wrapAsync(listingController.createRoute)
     );
-
+// .post(upload.single('listing[image][file]'), (req, res, next) => {
+//     res.send(req.file);
+// });
 
 //New Route (must come before `/:id` so 'new' isn't treated as an id)
 router.get("/new", isLoggedIn, listingController.newRoute);
@@ -33,8 +40,9 @@ router.route("/:id")
     //Update Route assync
     .put(
         isLoggedIn,
-        validateListing,
         isOwner,
+        upload.single('listing[image][file]'),
+        validateListing,
         wrapAsync(listingController.updateRoute))
     //Delete Route assync
     .delete(

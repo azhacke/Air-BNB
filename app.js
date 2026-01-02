@@ -1,7 +1,13 @@
+const path = require("path");
+if (process.env.NODE_ENV !== "production") {
+    // require("dotenv").config({ path: path.resolve(__dirname, "..", ".env") });
+    require("dotenv").config();
+}
+
 const express = require("express");
 const app = express(); let port = 5001;
 const mongoose = require("mongoose");
-const path = require("path");
+// `path` is already required above for dotenv path resolution
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");//module
 const ExpressError = require("./utils/ExpressError.js");

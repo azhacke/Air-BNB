@@ -16,7 +16,8 @@
 
         <body>
           <h3>Create a New Listing</h3>
-          <form method="POST" action="/listings/<%= listing.id %>?_method=PUT" novalidate class="needs-validation">
+          <form method="POST" action="/listings/<%= listing.id %>?_method=PUT" enctype="multipart/form-data" novalidate
+            class="needs-validation">
 
             <div class="mb-3">
               <label for="title" class="form-label">Title</label>
@@ -34,12 +35,25 @@
               <div class="valid-feedback">Looks good!</div>
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
               <label for="image" class="form-label">Image Link</label>
-              <!-- <input name="listing[image]" placeholder="enter image URL/Link" type="text" required /> -->
-              <input name="listing[image][url]" class="form-control"
-                value="<%= listing.image && listing.image.url ? listing.image.url : listing.image %>"
+              <input name="listing[image]" placeholder="enter image URL/Link" type="text" required /> -->
+            <!-- <input name="listing[image][url]" class="form-control"
+                value="<%=// listing.image && listing.image.url ? listing.image.url : listing.image %>"
                 type="text" required />
+              <div class="invalid-feedback">Please enter a valid image URL.</div>
+              <div class="valid-feedback">Looks good!</div>
+            </div> -->
+            <div>
+              <label > Current</label>
+              <br>
+              <img src="<%= listing.image.url %>" alt="no image" name="img"  style="height: 10rem;"/>
+              <br>
+              <br>
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Upload listing Image </label>
+              <input name="listing[image][file]" type="file" class="form-control"/>
               <div class="invalid-feedback">Please enter a valid image URL.</div>
               <div class="valid-feedback">Looks good!</div>
             </div>

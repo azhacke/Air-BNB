@@ -72,6 +72,9 @@ module.exports.createRoute = async (req, res) => {
     if (req.body.listing && typeof req.body.listing.image === "string") {
         req.body.listing.image = { url: req.body.listing.image };
     }
+    let url = req.file.url;
+    let filename = req.file.originalname;
+    req.body.listing.image = { url, filename };
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
     await newListing.save();
@@ -83,23 +86,37 @@ module.exports.createRoute = async (req, res) => {
 module.exports.editRoute = async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findById(id);
+    if (!listing) {
+        req.flash("error", "listing Does Not Exist !....");
+        return res.redirect("/listings");
+    }
+    let originalImageUrl = listing.image.url;
+    originalImageUrl = originalImageUrl.replace("/upload", '/upload/w_250/');
+    listing.image.url = originalImageUrl;
     res.render("listings/edit.ejs", { listing });
+
 };
 
 //Update Route assync
 module.exports.updateRoute = async (req, res) => {
     let { id } = req.params;
     const listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true });
+    if (typeof req.file !== "undefined") {
+        let url = req.file.url;
+        let filename = req.file.originalname;
+        listing.image = { url, filename };
+        await listing.save();
+    }
     req.flash("success", "Successfully updated the listing!");
     res.redirect(`/listings/${listing._id}`);
 };
 
 //Delete Route assync
 module.exports.deleteRoute = async (req, res) => {
-        let { id } = req.params;
-        await Listing.findByIdAndDelete(id);
-        req.flash("success", "Successfully deleted the listing!");
-        res.redirect("/");
+    let { id } = req.params;
+    await Listing.findByIdAndDelete(id);
+    req.flash("success", "Successfully deleted the listing!");
+    res.redirect("/");
 };
 
 //new Route
