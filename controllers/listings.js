@@ -38,9 +38,11 @@
  *  router.put('/:id', isLoggedIn, listings.updateRoute);
  *  router.delete('/:id', isLoggedIn, listings.deleteRoute);
  */
+const mapBoxToken = process.env.MAP_TOKEN;//make sure to set this in your .env file
 const express = require("express");
 const Listing = require("../models/listing.js");
-
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const geocodingClient = mbxGeocoding({ accessToken: mapBoxToken });
 
 //index Route assync
 module.exports.index = async (req, res) => {
@@ -68,6 +70,18 @@ module.exports.showRoute = async (req, res) => {
 
 //Create Route assync
 module.exports.createRoute = async (req, res) => {
+    let response = await geocodingClient
+        .forwardGeocode({
+            query: req.body.listing.location,
+            limit: 1
+        })
+        .send();
+
+    if (!response.body.features.length) {
+        req.flash("error", "Invalid location");
+        return res.redirect("back");
+    }
+
     // normalize if old clients send a plain string
     if (req.body.listing && typeof req.body.listing.image === "string") {
         req.body.listing.image = { url: req.body.listing.image };
@@ -77,7 +91,9 @@ module.exports.createRoute = async (req, res) => {
     req.body.listing.image = { url, filename };
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    await newListing.save();
+    newListing.geometry = response.body.features[0].geometry;
+    let savedListing = await newListing.save();//save to DB
+    console.log(savedListing);
     req.flash("success", "Successfully created a new listing!");
     res.redirect("/listings");
 };
