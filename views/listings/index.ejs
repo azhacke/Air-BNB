@@ -1,25 +1,120 @@
 <% layout("/layouts/boilerplate")%>
 
-    <body>
-        <h3>All Listings</h3>
+    <style>
+        #filters {
+            display: flex;
+            flex-wrap: wrap;
 
-        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1 ">
+        }
+
+        .filter {
+            text-align: center;
+            margin-right: 2rem;
+            margin-top: 2rem;
+            opacity: 0.7;
+        }
+
+        .filter:hover {
+            opacity: 2;
+            cursor: pointer;
+        }
+
+        .filter p {
+            font-size: 0.8rem;
+        }
+        .tax-info {
+            display: none;
+            
+        }
+        /* .tax-toggle {
+            
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            height: 1rem;
+        } */
+    </style>
+
+    <div id="filters" class="navbar-collapse navbar navbar-toggler ">
+        <div class="filter">
+            <div><i class="fa-solid fa-fire"></i></div>
+            <p>Trending</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-bed"></i></div>
+            <p>Rooms</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain-city"></i></div>
+            <p>Iconic cities</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-mountain"></i></div>
+            <p>Mountains</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-umbrella-beach"></i></div>
+            <p>Beaches</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-tree"></i></div>
+            <p>Countryside</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-snowflake"></i></div>
+            <p>Snow</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-city"></i></div>
+            <p>Urban</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-house"></i></div>
+            <p>Homes</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-building"></i></div>
+            <p>Apartments</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-landmark"></i></div>
+            <p>Historical</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-igloo"></i></div>
+            <p>Unique stays</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-paw"></i></div>
+            <p>Pet-friendly</p>
+        </div>
+        <div class="filter">
+            <div><i class="fa-solid fa-fort-awesome"></i></div>
+            <p>castles</p>
+        </div>
+    </div>
+    <div class="tax-toggle ">
+        <div class="form-check-reverse form-switch">
+            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+            <label class="form-check-label" for="flexSwitchCheckDefault">Display with taxes</label>
+        </div>
+    </div>
+
+    <body>
+        <!-- <h3>All Listings</h3> -->
+
+        <div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1 mt-3 ">
 
             <% for(let listing of allListings) { %>
                 <a href="/listings/<%= listing._id  %>" class="listing-link">
 
                     <div class="card col listing-card mb-4">
 
-                        <img 
-                        src="<%= listing.image.url %>" 
-                        class="card-img-top"
-                        alt="Listing_image"
-                        style="height: 20rem;"
-                        />
+                        <img src="<%= listing.image.url %>" class="card-img-top" alt="Listing_image"
+                            style="height: 20rem;" />
 
 
                         <div class="card-img-overlay">
-                            
+
                         </div>
                         <div class="card-body">
                             <p class="card-text">
@@ -27,6 +122,7 @@
                                     <%= listing.title %> <br>
                                 </b>
                                 &#x20b9;<%= listing.price.toLocaleString("en-IN"); %>/night
+                                <i class="tax-info"> &nbsp;+18% gst </i>
                             </p>
 
                         </div>
@@ -44,3 +140,18 @@
 
 
     </body>
+
+    <script>
+        const taxSwitch = document.getElementById('flexSwitchCheckDefault');
+        taxSwitch.addEventListener('change', () => {
+        const taxInfoElements = document.querySelectorAll('.tax-info');
+        taxInfoElements.forEach(element => {
+            if (taxSwitch.checked) {
+                element.style.display = 'inline';
+            } else {
+                element.style.display = 'none';
+            }
+        });
+        console.log('Tax switch toggled');
+    });
+</script>   

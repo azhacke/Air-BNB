@@ -1,3 +1,24 @@
+<style>
+    .btn-search {
+        background-color: hsl(356, 99%, 63%);
+        color: white;
+        border-radius: 25px;
+        padding: 0 1rem 0 1rem;
+    }
+    .btn-search:hover {
+        background-color: #fe424d;
+        color: white;
+    }
+    .btn-search i {
+      display: inline;
+      margin: 0.5rem;
+    }
+    .search-input {
+        border-radius: 25px;
+        padding: 0.5rem 3rem 0.5rem 3rem;
+        
+    }
+</style>
 <nav class="navbar navbar-expand-md bg-body-tertiary border-bottom sticky-top">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
@@ -7,19 +28,27 @@
     </button>
     <div class="collapse navbar-collapse bg-body-tertiary" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/">Home</a>
-        <a class="nav-link" href="/listings">All listings</a>
-        <a class="nav-link" href="/listings/new">Add New listing</a>
+        <a class="nav-link" href="/listings">Explore</a>
       </div>
+
+      <div class="navbar-nav ms-auto ">
+        <nav class="navbar bg-body-tertiary">
+            <form class="d-flex" role="search">
+              <input class="form-control me-2 search-input" type="search" placeholder="Search Destinations" aria-label="Search" />
+              <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+            </form>
+      </div>
+
       <div class="navbar-nav  ms-auto">
         <!-- <a href="/signup" class="nav-link">Sign Up</a>
         <a href="/login" class="nav-link">Log In</a> -->
+        <a class="nav-link" href="/listings/new">Add New listing</a>
         <% if (!currentUser) { %>
-          <a href="/signup" class="nav-link">Sign Up</a>
-          <a href="/login" class="nav-link">Log In</a>
-        <% } else { %>
-          <a href="/logout" class="nav-link">Log Out</a>
-        <% } %>
+          <a href="/signup" class="nav-link"><b>Sign Up</b></a>
+          <a href="/login" class="nav-link"><b>Log In</b></a>
+          <% } else { %>
+            <a href="/logout" class="nav-link"><b>Log Out</b></a>
+            <% } %>
       </div>
     </div>
 

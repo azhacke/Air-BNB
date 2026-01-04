@@ -12,6 +12,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");//module
 const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");//to store session in mongoDB
 const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -23,7 +24,8 @@ const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
 // let parseRoute;
-const MONGO_URL = "mongodb://localhost:27017/wanderlust";
+// const MONGO_URL = "mongodb://localhost:27017/wanderlust";
+const dbUrl = process.env.ATLASDB_URL || "mongodb://localhost:27017/wanderlust";
 
 
 //Database Connection
@@ -31,7 +33,7 @@ main()
     .then(() => console.log("Connected to MongoDB"))
     .catch(err => console.log(err));
 async function main(params) {
-    await mongoose.connect(MONGO_URL);
+    await mongoose.connect(dbUrl);
 }
 
 //Middleware
@@ -42,7 +44,21 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));//this is to use files in public folder
 
+//session store configuration
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    crypto: {
+        secret: "mysupersecretcode"
+    },
+    touchAfter: 24 * 3600 //in seconds - time period in which if session is modified it will be resaved to the database only once even if there are multiple requests within that period of time
+});
+
+store.on("error", function (e) {
+    console.log("MONGO SESSION STORE ERROR", e);
+});
+
 const sessionsOptions = {
+    store: store,
     secret: "mysupersecretcode",
     resave: false,
     saveUninitialized: true,
@@ -57,6 +73,9 @@ const sessionsOptions = {
 app.get("/", (req, res) => {
     res.redirect("/listings");
 });
+
+
+
 
 //session configuration
 app.use(session(sessionsOptions));
