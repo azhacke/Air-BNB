@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, "/public")));//this is to use files 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     crypto: {
-        secret: "mysupersecretcode"
+        secret: process.env.SECRET,
     },
     touchAfter: 24 * 3600 //in seconds - time period in which if session is modified it will be resaved to the database only once even if there are multiple requests within that period of time
 });
@@ -59,7 +59,7 @@ store.on("error", function (e) {
 
 const sessionsOptions = {
     store: store,
-    secret: "mysupersecretcode",
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: {
