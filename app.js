@@ -44,21 +44,41 @@ app.use(methodOverride("_method"));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));//this is to use files in public folder
 
-//session store configuration
-const store = MongoStore.create({
-    mongoUrl: dbUrl,
-    crypto: {
-        secret: process.env.SECRET,
-    },
-    touchAfter: 24 * 3600 //in seconds - time period in which if session is modified it will be resaved to the database only once even if there are multiple requests within that period of time
-});
-
-store.on("error", function (e) {
-    console.log("MONGO SESSION STORE ERROR", e);
-});
+//session store configuration — support multiple connect-mongo export shapes
+let store;
+try {
+    const MongoStorePkg = require("connect-mongo");
+    const MongoStoreImpl = MongoStorePkg && MongoStorePkg.default ? MongoStorePkg.default : MongoStorePkg;
+    if (MongoStoreImpl && typeof MongoStoreImpl.create === "function") {
+        // modern usage (v4+ / v6+)
+        store = MongoStoreImpl.create({
+            mongoUrl: dbUrl,
+            crypto: { secret: process.env.SECRET },
+            touchAfter: 24 * 3600
+        });
+    } else if (typeof MongoStoreImpl === "function") {
+        // older usage: require('connect-mongo')(session)
+        try {
+            const LegacyMongoStoreFactory = MongoStoreImpl(session);
+            store = new LegacyMongoStoreFactory({ mongooseConnection: mongoose.connection, touchAfter: 24 * 3600 });
+        } catch (e) {
+            // last-resort fallback: try constructing directly
+            store = new MongoStoreImpl({ mongoUrl: dbUrl, touchAfter: 24 * 3600 });
+        }
+    } else {
+        throw new Error("Unsupported connect-mongo export shape");
+    }
+    if (store && typeof store.on === "function") {
+        store.on("error", function (e) {
+            console.log("MONGO SESSION STORE ERROR", e);
+        });
+    }
+} catch (err) {
+    console.error("Failed to initialize Mongo session store:", err);
+    store = undefined; // let express-session fall back to default MemoryStore (not ideal for production)
+}
 
 const sessionsOptions = {
-    store: store,
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: true,
@@ -68,6 +88,7 @@ const sessionsOptions = {
         httpOnly: true,
     }
 };
+if (store) sessionsOptions.store = store;
 
 //Home Route
 app.get("/", (req, res) => {
